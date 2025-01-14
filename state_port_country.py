@@ -26,20 +26,19 @@ def _(pd):
     data = data.drop(columns=['AM24_USD', 'AM24_INR'])
 
     # Display the dataset to verify it was read correctly
-    data.head()
+    #data.head()
     return data, dataset_path
 
 
 @app.cell
-def _(data):
-    data.columns
+def _():
+    #data.columns
     return
 
 
 @app.cell
 def _(data):
     states = data['State '].unique().tolist()
-    print(states)
     return (states,)
 
 
@@ -66,7 +65,7 @@ def _(mo):
 
 @app.cell
 def _(mo, radio):
-    mo.hstack([radio, mo.md(f"Has value: {radio.value}")])
+    mo.hstack([radio, mo.md(f"Selected option: {radio.value}")])
     return
 
 
@@ -129,8 +128,32 @@ def _(data, radio, state_dropdown):
     # Get the resulting table and display it
     result_table_country = update_table_country()
     result_table_country
-
     return result_table_country, update_table_country
+
+
+@app.cell
+def _(data, radio, state_dropdown):
+    # Function to calculate total exports and return text
+    def update_table_total():
+        if radio.value == "Total Exports from the state":
+            selected_state = state_dropdown.value
+            # Filter data for the selected state
+            filtered_data = data[data['State '] == selected_state]
+
+            # Calculate total exports in INR and USD
+            total_inr = filtered_data['AM24_INR_Cr'].sum()
+            total_usd = filtered_data['AM24_USD_million'].sum()
+
+            # Return the result as text
+            return f"### Total Exports from {selected_state}\n- **INR:** {total_inr:.1f} Crore\n- **USD:** {total_usd:.1f} Million"
+        else:
+            return None
+
+    # Get the resulting text and display it
+    result_text = update_table_total()
+    result_text
+
+    return result_text, update_table_total
 
 
 @app.cell
