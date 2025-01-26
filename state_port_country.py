@@ -14,8 +14,13 @@ def _():
 @app.cell
 def _(mo, pd):
     # Correct way to load the CSV
-    dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
-    data = pd.read_csv(dataset_path)
+    try: 
+        dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
+        data = pd.read_csv(dataset_path)
+        print("Columns loaded:", data.columns.tolist())  # Debug column names
+    except:
+        print(f"Error loading CSV: {e}")
+        raise
     # # Define the relative path to the dataset
     # dataset_path = "state_exp_by_ports_and_countries.csv"
 
