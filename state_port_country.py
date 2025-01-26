@@ -32,6 +32,8 @@ def _(mo, pd):
 
     # Drop the old columns as they are no longer needed
     data = data.drop(columns=['AM24_USD', 'AM24_INR'])
+    # Example in any cell
+    mo.md(f"Data sample: {data.head().to_html()}")
 
     # Display the dataset to verify it was read correctly
     #data.head()
