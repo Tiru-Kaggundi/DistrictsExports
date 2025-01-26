@@ -27,5 +27,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Export notebook and copy data
-        run: marimo export html-wasm state_port_country.py -o docs/ --mode run --name index
-        run: cp data/state_exp_by_ports_and_countries.csv docs/
+        run: |
+          marimo export html-wasm state_port_country.py -o docs/ --mode run --name index
+        # Copy CSV to docs/ (double-check filename!)
+          cp state_exp_by_ports_and_countries.csv docs/
