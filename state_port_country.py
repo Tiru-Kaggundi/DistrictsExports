@@ -12,7 +12,7 @@ def _():
 
 
 @app.cell
-def _(pd):
+def _(mo, pd):
     # Correct way to load the CSV
     dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
     data = pd.read_csv(dataset_path)
