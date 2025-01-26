@@ -1,33 +1,24 @@
-name: Deploy to GitHub Pages  # Name of the workflow
+name: Deploy to GitHub Pages
 
-# Run this workflow only when code is pushed to the "main" branch
 on:
   push:
     branches: [main]
 
-# Define the jobs (tasks) to run
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use a fresh Ubuntu machine
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out your code from GitHub
       - uses: actions/checkout@v4
 
-      # Step 2: Install marimo
       - name: Install marimo
         run: pip install marimo
-
-      # Step 3: Export your marimo notebook to HTML/WASM
-      - name: Export notebook
-        run: marimo export html-wasm state_port_country.py -o docs/ --mode run
-
-      # Step 4: Deploy the "docs/" folder to GitHub Pages
-      - name: Deploy to Pages
-        uses: actions/deploy-pages@v4
 
       - name: Export notebook and copy data
         run: |
           marimo export html-wasm state_port_country.py -o docs/ --mode run --name index
-        # Copy CSV to docs/ (double-check filename!)
+          # Copy CSV to docs/
           cp state_exp_by_ports_and_countries.csv docs/
+
+      - name: Deploy to Pages
+        uses: actions/deploy-pages@v4
