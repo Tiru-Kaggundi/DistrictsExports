@@ -13,11 +13,14 @@ def _():
 
 @app.cell
 def _(pd):
-    # Define the relative path to the dataset
-    dataset_path = "state_exp_by_ports_and_countries.csv"
-
-    # Read the dataset
+    # Correct way to load the CSV
+    dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
     data = pd.read_csv(dataset_path)
+    # # Define the relative path to the dataset
+    # dataset_path = "state_exp_by_ports_and_countries.csv"
+
+    # # Read the dataset
+    # data = pd.read_csv(dataset_path)
     # Convert AM24_USD to millions and AM24_INR to crores
     data['AM24_USD_million'] = (data['AM24_USD'] / 1_000_000).round(2)  # Convert to USD million
     data['AM24_INR_Cr'] = (data['AM24_INR'] / 10_000_000).round(2)  # Convert to INR crore
