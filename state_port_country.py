@@ -19,6 +19,7 @@ def _(mo, pd):
         data = pd.read_csv(dataset_path)
         print("Columns loaded:", data.columns.tolist())  # Debug column names
     except:
+        e="Error loading CSV"
         print(f"Error loading CSV: {e}")
         raise
     # # Define the relative path to the dataset
