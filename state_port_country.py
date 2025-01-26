@@ -14,7 +14,7 @@ def _():
 @app.cell
 def _(pd):
     # Define the relative path to the dataset
-    dataset_path = "data/state_exp_by_ports_and_countries.csv"
+    dataset_path = "state_exp_by_ports_and_countries.csv"
 
     # Read the dataset
     data = pd.read_csv(dataset_path)
