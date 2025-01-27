@@ -20,11 +20,22 @@ jobs:
       - name: Install marimo
         run: pip install marimo
 
-      # Step 3: Export the notebook and copy data
-      - name: Export notebook and copy data
+      # Step 3: Export the notebook and prepare assets
+      - name: Export notebook and prepare assets
         run: |
+          # Export the notebook as an interactive HTML app
           marimo export html-wasm state_port_country.py -o docs/ --mode run
+          
+          # Ensure the export generated the correct files
+          if [ ! -f "docs/state_port_country.html" ]; then
+            echo "Error: Exported HTML file not found in docs/."
+            exit 1
+          fi
+          
+          # Rename the exported HTML to index.html for GitHub Pages
           mv docs/state_port_country.html docs/index.html
+
+          # Copy data CSV file into docs/ for the app
           cp state_exp_by_ports_and_countries.csv docs/
 
       # Step 4: Deploy to GitHub Pages
