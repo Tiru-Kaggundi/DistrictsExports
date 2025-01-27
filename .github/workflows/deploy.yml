@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       - name: Export notebook and copy data
         run: |
           marimo export html-wasm state_port_country.py -o docs/ --mode run
-          mv docs/state_port_country.html docs/index.html
+          mv state_port_country.html docs/index.html
           cp state_exp_by_ports_and_countries.csv docs/
 
       # Step 4: Deploy to GitHub Pages
