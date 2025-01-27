@@ -10,13 +10,12 @@ def _():
     import pandas as pd
     return mo, pd
 
-
 @app.cell
 def _(mo, pd):
     # Correct way to load the CSV
     try: 
         dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
-        data = pd.read_csv(dataset_path)
+        data = pd.read_csv(dataset_path, compression='infer')
         print("Columns loaded:", data.columns.tolist())  # Debug column names
     except:
         e="Error loading CSV"
