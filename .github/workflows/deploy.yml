@@ -23,9 +23,16 @@ jobs:
 
       # Step 3: Export the notebook and copy data
       - name: Export notebook and copy data
-        run: |
-          marimo export html-wasm state_port_country.py -o docs/ --mode run
+        run: marimo export html-wasm state_port_country.py -o docs/ --mode run
+
+      # NEW STEP: Upload artifact for GitHub Pages
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: docs/
 
       # Step 4: Deploy to GitHub Pages
       - name: Deploy to Pages
         uses: actions/deploy-pages@v4
+        
