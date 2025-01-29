@@ -8,15 +8,14 @@ app = marimo.App(width="medium")
 def _():
     import marimo as mo
     import pandas as pd
-    import polars as pl
-    return mo, pd, pl
+    return mo, pd
 
 @app.cell
-def _(mo, pd, pl):
+def _(mo, pd):
     # Correct way to load the CSV
     try: 
         dataset_path = mo.notebook_location() / "public" / "state_exp_by_ports_and_countries.csv"
-        data = pl.read_csv(dataset_path, compression='infer')
+        data = pd.read_csv(dataset_path, compression='infer')
     except:
         e="Error loading CSV hehe"
         print(f"Error loading CSV: {e}")
