@@ -15,6 +15,7 @@ def _(mo, pd):
     # Correct way to load the CSV
     try: 
         dataset_path = mo.notebook_location() / "public" / "state_exp_by_ports_and_countries.csv"
+        #dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
         data = pd.read_csv(dataset_path, compression='infer')
     except:
         e="Error loading CSV hehe"
@@ -32,7 +33,7 @@ def _(mo, pd):
     # Drop the old columns as they are no longer needed
     data = data.drop(columns=['AM24_USD', 'AM24_INR'])
     # Example in any cell
-    mo.md(f"Data sample: {data.head().to_html()}")
+    #mo.md(f"Data sample: {data.head().to_html()}")
 
     # Display the dataset to verify it was read correctly
     #data.head()
