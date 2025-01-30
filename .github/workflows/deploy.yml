@@ -29,7 +29,7 @@ jobs:
       - name: Copy CSV file to docs/
         run: |
           mkdir -p docs/public
-          cp -r public/* docs/public/
+          cp state_exp_by_ports_and_countries.csv docs/public/
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
