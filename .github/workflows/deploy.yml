@@ -22,8 +22,14 @@ jobs:
       - name: Install marimo
         run: pip install marimo
 
-      - name: Export notebook and copy data
+      - name: Export notebook
         run: marimo export html-wasm state_port_country.py -o docs/ --mode run
+
+      # Copy CSV file from public/ to docs/
+      - name: Copy CSV file to docs/
+        run: |
+          mkdir -p docs/public
+          cp -r public/* docs/public/
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
