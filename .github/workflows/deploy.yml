@@ -19,7 +19,7 @@ jobs:
 
             - name: 📄 Export notebook
               run: |
-                  marimo export html-wasm state_port_country.py -o docs --mode run
+                  marimo export html-wasm state_port_country.py -o docs/index.html --mode run
 
             - name: Ensure public directory and CSV exist
               run: |
