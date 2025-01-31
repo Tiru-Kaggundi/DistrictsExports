@@ -18,7 +18,7 @@ def _(mo, pd):
         #dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
         data = pd.read_csv(dataset_path, compression=None)
     except:
-        e="Error loading CSV hehe"
+        e="Error loading CSV hehehe"
         print(f"Error loading CSV: {e}")
         raise
     # # Define the relative path to the dataset
