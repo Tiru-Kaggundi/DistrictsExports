@@ -29,7 +29,7 @@ jobs:
       - name: Ensure CSV file is included
         run: |
           mkdir -p docs/public
-          cp state_exp_by_ports_and_countries.csv docs/public/
+          cp public/state_exp_by_ports_and_countries.csv docs/public/
           ls -lah docs/public/  # Debugging step to verify file existence
 
       # TAR everything before uploading (prevents removal of `public/`)
@@ -43,12 +43,12 @@ jobs:
           name: github-pages
           path: deploy.tar
 
-      # Unpack TAR before deployment
+      # Unpack TAR before deployment using rsync to avoid "directory not empty" error
       - name: Extract archive before deployment
         run: |
           mkdir -p extracted
           tar -xvf deploy.tar -C extracted
-          mv extracted/docs/* docs/
+          rsync -av extracted/docs/ docs/  # Merges extracted files properly
           ls -lah docs/public/  # Debugging step to verify file existence
 
       - name: Deploy to Pages
