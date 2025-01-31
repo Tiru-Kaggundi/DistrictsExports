@@ -25,29 +25,22 @@ jobs:
       - name: Export notebook
         run: marimo export html-wasm state_port_country.py -o docs/ --mode run
 
-      # Ensure public directory and CSV exist
-      - name: Ensure CSV file is included
+      - name: Ensure public directory and CSV exist
         run: |
           mkdir -p docs/public
           cp state_exp_by_ports_and_countries.csv docs/public/
           ls -lah docs/public/  # Debugging step
 
-      - name: Archive deployment files
-        run: tar -cvf deploy.tar docs/
+      - name: Set up GitHub Pages output directory
+        run: |
+          mkdir -p gh-pages-output
+          cp -r docs/* gh-pages-output/
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: deploy.tar
-
-      # Extract the artifact before deployment
-      - name: Extract artifact before deployment
-        run: |
-          mkdir -p extracted
-          tar -xvf deploy.tar -C extracted
-          mv extracted/docs/* docs/  # Ensuring correct path
-          ls -lah docs/  # Debugging step
+          path: gh-pages-output
 
       - name: Deploy to Pages
         id: deployment
