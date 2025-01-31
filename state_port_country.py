@@ -16,7 +16,7 @@ def _(mo, pd):
     try: 
         dataset_path = mo.notebook_location() / "public" / "state_exp_by_ports_and_countries.csv"
         #dataset_path = mo.notebook_location() / "state_exp_by_ports_and_countries.csv"
-        data = pd.read_csv(dataset_path, compression='infer')
+        data = pd.read_csv(dataset_path, compression=None)
     except:
         e="Error loading CSV hehe"
         print(f"Error loading CSV: {e}")
