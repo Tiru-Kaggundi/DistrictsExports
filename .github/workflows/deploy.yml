@@ -30,27 +30,27 @@ jobs:
         run: |
           mkdir -p docs/public
           cp state_exp_by_ports_and_countries.csv docs/public/
-          ls -lah docs/public/  # Debugging step to verify file existence
+          ls -lah docs/public/  # Debugging step
 
-      # TAR everything before uploading (prevents removal of `public/`)
       - name: Archive deployment files
         run: tar -cvf deploy.tar docs/
 
-      # Upload TAR archive instead of loose files
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
           path: deploy.tar
 
-      # Unpack TAR before deployment using rsync to avoid "directory not empty" error
-      - name: Extract archive before deployment
+      # Extract the artifact before deployment
+      - name: Extract artifact before deployment
         run: |
           mkdir -p extracted
           tar -xvf deploy.tar -C extracted
-          rsync -av extracted/docs/ docs/  # Merges extracted files properly
-          ls -lah docs/public/  # Debugging step to verify file existence
+          mv extracted/docs/* docs/  # Ensuring correct path
+          ls -lah docs/  # Debugging step
 
       - name: Deploy to Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
