@@ -10,9 +10,9 @@ permissions:
   pages: write
 
 jobs:
-  deploy:  # Changed job name from 'build' to 'deploy'
+  deploy:
     runs-on: ubuntu-latest
-    environment:  # Added environment configuration
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
@@ -25,11 +25,14 @@ jobs:
       - name: Export notebook
         run: marimo export html-wasm state_port_country.py -o docs/ --mode run
 
-      # Copy CSV file from public/ to docs/
+      # Ensure the CSV file is copied to docs/
       - name: Copy CSV file to docs/
         run: |
           mkdir -p docs/public
           cp state_exp_by_ports_and_countries.csv docs/public/
+
+      - name: Verify CSV exists before deployment
+        run: ls -l docs/public/
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-artifact@v4
@@ -38,5 +41,5 @@ jobs:
           path: docs/
 
       - name: Deploy to Pages
-        id: deployment  # Added ID for reference
+        id: deployment
         uses: actions/deploy-pages@v4
