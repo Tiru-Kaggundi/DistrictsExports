@@ -17,7 +17,7 @@ def _(mo, pd):
         # Point to the gzipped CSV file
         dataset_path = mo.notebook_location() / "public" / "state_exp_by_ports_and_countries.csv.gz"
         # Let pandas infer compression (or you can explicitly use compression='gzip')
-        data = pd.read_csv(dataset_path, compression='infer')
+        data = pd.read_csv(dataset_path, compression='gzip')
     except Exception as e:
         print(f"Error loading CSV: {e}")
         raise
