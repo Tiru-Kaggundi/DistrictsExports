@@ -28,7 +28,13 @@ jobs:
         run: |
           mkdir -p docs/public
           cp state_exp_by_ports_and_countries.csv docs/public/
-          ls -lah docs/public/  # Debug: list files to confirm CSV presence
+          ls -lah docs/public/
+
+      - name: Precompress CSV file
+        run: |
+          # Compress the CSV file and output with a .gz extension
+          gzip -c docs/public/state_exp_by_ports_and_countries.csv > docs/public/state_exp_by_ports_and_countries.csv.gz
+          ls -lah docs/public/
 
       - name: Create .nojekyll file
         run: touch docs/.nojekyll
