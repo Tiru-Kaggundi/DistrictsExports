@@ -30,10 +30,12 @@ jobs:
           cp state_exp_by_ports_and_countries.csv docs/public/
           ls -lah docs/public/
 
-      - name: Precompress CSV file
+      - name: Precompress CSV file and remove uncompressed version
         run: |
-          # Compress the CSV file and output with a .gz extension
+          # Create a gzipped version of the CSV
           gzip -c docs/public/state_exp_by_ports_and_countries.csv > docs/public/state_exp_by_ports_and_countries.csv.gz
+          # Remove the uncompressed CSV so only the gzipped file is served
+          rm docs/public/state_exp_by_ports_and_countries.csv
           ls -lah docs/public/
 
       - name: Create .nojekyll file
