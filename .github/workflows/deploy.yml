@@ -10,42 +10,45 @@ permissions:
   pages: write
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Install marimo
-              run: pip install marimo
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-            - name: 📄 Export notebook
-              run: |
-                  marimo export html-wasm state_port_country.py -o docs/index.wasm.html --mode run
+      - name: Install marimo
+        run: pip install marimo
 
-            - name: Ensure public directory and CSV exist
-              run: |
-                  mkdir -p docs/public
-                  cp state_exp_by_ports_and_countries.csv docs/public/
-                  ls -lah docs/public/  # Debugging step
+      - name: 📄 Export notebook
+        run: |
+          marimo export html-wasm state_port_country.py -o docs/ --mode run
 
-            - name: 📦 Upload Pages Artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
-                  path: docs/
+      - name: Ensure public directory and CSV exist
+        run: |
+          mkdir -p docs/public
+          cp state_exp_by_ports_and_countries.csv docs/public/
+          ls -lah docs/public/  # Debugging step
 
-    deploy:
-        needs: build
-        runs-on: ubuntu-latest
-        environment:
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+      - name: 📦 Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
 
-        permissions:
-            pages: write
-            id-token: write
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-        steps:
-            - name: 🌐 Deploy to GitHub Pages
-              id: deployment
-              uses: actions/deploy-pages@v4
-              with:
-                  artifact_name: github-pages
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: 🌐 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages
