@@ -7,4 +7,4 @@ state through port to country
 and so on...
 I will use Marimo to try out visualisation
 End goal would be to create a web app for people to play around in marimo
-Page is no deployed at https://tiru-kaggundi.github.io/DistrictsExports/ (works on desktop only)
+Page is now deployed at https://tiru-kaggundi.github.io/DistrictsExports/ (works on desktop only)
